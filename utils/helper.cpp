@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <map>
+#include <tuple>
 using namespace std;
 
 vector<string> readFileContentsIntoStringVector(string fileName){
@@ -22,6 +24,27 @@ vector<string> readFileContentsIntoStringVector(string fileName){
     file.close();
 
     return fileContents;
+}
+
+map<tuple<int, int>, char> readFileContentsIntoCoordinateMap(string fileName) {
+    ifstream file(fileName);
+
+    if (!file.is_open()) {
+        // print error message and return
+        cerr << "Failed to open file: " << fileName << endl;
+        return {};
+    }
+
+    map<tuple<int, int>, char> coordinates;
+    string line;
+    int y = 0;
+    while (getline(file, line)) {
+        for (int x = 0; x < line.size(); x++) {
+            coordinates[{x, y}] = line.at(x);
+        }
+    }
+    file.close();
+    return coordinates;
 }
 
 vector<string> split(string s, string delimiter) {
