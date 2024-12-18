@@ -65,3 +65,20 @@ vector<string> split(string s, string delimiter) {
 int sign(int n) {
     return (0 < n) - (n < 0);
 }
+
+vector<tuple<int, int>> getSurrounding(tuple<int, int> node) {
+    vector<tuple<int, int>> ns;
+    int x = get<0>(node);
+    int y = get<1>(node);
+    ns.push_back({x-1, y});
+    ns.push_back({x+1, y});
+    ns.push_back({x, y-1});
+    ns.push_back({x, y+1});
+    return ns;
+}
+
+bool inside(tuple<int, int> pos, int width, int height) {
+    int x = get<0>(pos);
+    int y = get<1>(pos);
+    return x >= 0 && x <= width && y >= 0 && y <= height;
+}
